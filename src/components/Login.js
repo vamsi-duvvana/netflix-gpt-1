@@ -3,9 +3,9 @@ import Header from "./Header"
 import { checkValidData } from "../utils/validate"
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile } from "firebase/auth"
 import { auth } from "../utils/firebase"
-import { useNavigate } from "react-router-dom"
 import { useDispatch } from "react-redux"
 import { addUser } from "../utils/userSlice"
+import { BG_IMG } from "../utils/constants"
 
 const Login = () => {
 
@@ -14,7 +14,6 @@ const Login = () => {
   const name = useRef(null);
   const email = useRef(null);
   const password = useRef(null);
-  const navigate = useNavigate()
   const dispatch = useDispatch();
 
   const handleButtonClick = () => {
@@ -27,7 +26,6 @@ const Login = () => {
         signInWithEmailAndPassword(auth, email.current.value, password.current.value)
           .then((userCredential) => {
             // const user = userCredential.user;
-            navigate("/browse");
           })
           .catch((error) => {
             const errorCode = error.code;
@@ -44,11 +42,9 @@ const Login = () => {
             }).then(() => {
               const { uid, email, displayName } = auth.currentUser;
               dispatch(addUser({ uid: uid, email: email, displayName: displayName }));
-              navigate("/browse");
             }).catch((error) => {
               setErrorMessage(error.Message);
             });
-            navigate("/browse")
           })
           .catch((error) => {
             const errorCode = error.code;
@@ -67,7 +63,7 @@ const Login = () => {
     <div>
       <Header />
       <div className="absolute">
-        <img className="" src="https://assets.nflxext.com/ffe/siteui/vlv3/594f8025-139a-4a35-b58d-4ecf8fdc507c/d3c4e455-f0bf-4003-b7cd-511dda6da82a/IN-en-20240108-popsignuptwoweeks-perspective_alpha_website_small.jpg" alt="bg-img" />
+        <img className="" src={BG_IMG} alt="bg-img" />
       </div>
       <form onSubmit={(e) => e.preventDefault()} className="w-3/12 absolute p-12 bg-black my-36 mx-auto right-0 left-0 flex flex-col bg-opacity-80">
         <h1 className="text-white mb-2 text-2xl font-semibold pl-2">{isSignInForm ? "Sign In" : "Sign Up"}</h1>
