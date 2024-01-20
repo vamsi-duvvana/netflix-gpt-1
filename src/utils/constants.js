@@ -9,3 +9,4 @@ export const UPCOMING_MOVIES_URL = "https://api.themoviedb.org/3/movie/upcoming?
 export const TOP_RATED_MOVIES_URL = "https://api.themoviedb.org/3/movie/top_rated?page=1"
 export const VIDEO_BASE_URL = "https://api.themoviedb.org/3/movie"
 export const POSTER_BASE_URL = "https://image.tmdb.org/t/p/w500"
+export const SUPPORTED_LANGUAGES = [{ identifier: "en", name: "English" }, { identifier: "hindi", name: "Hindi" }, { identifier: "spanish", name: "Spanish" }]

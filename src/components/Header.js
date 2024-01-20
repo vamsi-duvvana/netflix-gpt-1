@@ -4,12 +4,27 @@ import { useDispatch, useSelector } from "react-redux";
 import { onAuthStateChanged, signOut } from "firebase/auth";
 import { auth } from "../utils/firebase";
 import { useEffect } from "react";
-import { LOGO, USER_AVATAR } from "../utils/constants";
+import { LOGO, SUPPORTED_LANGUAGES, USER_AVATAR } from "../utils/constants";
+import { toggleGptSearch } from "../utils/gptSlice";
+import { addLanguageConfig } from "../utils/configSlice";
 
 const Header = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const user = useSelector((store) => store.user);
+    const gptToggler = useSelector((store) => store.gpt.gptSearchToggle);
+
+    const handleLangChange = (e) => {
+        dispatch(addLanguageConfig(e.target.value));
+    }
+
+    const handleGptBtn = () => {
+        if (gptToggler) {
+            dispatch(toggleGptSearch(false));
+        } else {
+            dispatch(toggleGptSearch(true));
+        }
+    }
 
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, (user) => {
@@ -35,13 +50,20 @@ const Header = () => {
     }
 
     return (
-        <div className="absolute px-5 py-2 bg-gradient-to-b from-black z-10 w-screen flex justify-between">
+        <div className="absolute px-5 pt-2 bg-gradient-to-b from-black z-10 w-screen flex justify-between">
             <img className="w-52" src={LOGO} alt="logo" />
-
-            {user && (<div className="flex my-10 p-2">
-                <div className="mr-2 mt-2 text-white">Hi, {user.displayName}</div>
+            {user && (<div className="flex my-10 p-2 justify-center items-center">
+                {gptToggler && (<select className="p-2 m-2 rounded-md font-bold bg-gray-900 text-white" onChange={handleLangChange}>
+                    {SUPPORTED_LANGUAGES.map((item) => {
+                        return (
+                            <option key={item.identifier} value={item.identifier}>{item.name}</option>
+                        )
+                    })}
+                </select>)}
+                <button className="p-2 m-2 mr-10 text-white bg-gray-500 rounded-md font-bold" onClick={() => handleGptBtn()} >{gptToggler ? "Home Page" : "GPT Search"}</button>
+                <div className="mr-2 text-white">Hi, {user.displayName}</div>
                 <img className="w-10 h-10 mr-2" src={USER_AVATAR} alt="profile-img" />
-                <button onClick={() => handleSignOutBtn()} className="mt-1 text-white text-sm">(Sign Out)</button>
+                <button onClick={() => handleSignOutBtn()} className=" text-white text-sm">(Sign Out)</button>
             </div>)}
         </div>
     )
