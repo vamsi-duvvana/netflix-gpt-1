@@ -1,10 +1,10 @@
 import Header from "./Header"
-import useNowPlayingMovies from "../hooks/useNowPlayingMovies";
+import useFetchMoviesMovies from "../hooks/useFetchMoviesMovies";
 import MainContainer from "./MainContainer";
 import SecondaryContainer from "./SecondaryContainer";
 
 const Browse = () => {
-    useNowPlayingMovies();
+    useFetchMoviesMovies();
 
     return (
         <div>
