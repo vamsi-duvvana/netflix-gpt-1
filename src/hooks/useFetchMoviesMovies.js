@@ -60,6 +60,11 @@ const useFetchMoviesMovies = () => {
     }
 
     useEffect(() => {
+        // Need to do the memorization
+        /*
+            If the redux store already have the nowPlayingMovies list, then i should not do the API call for the same every time.
+            similarly for all the other apis
+        */
         getNowPlayingMovies();
         getPopularMovies();
         getUpcomingMovies();
