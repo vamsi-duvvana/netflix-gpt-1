@@ -16,4 +16,9 @@
 - NetflixGPT
     - Search Bar
     - Movie Suggestions
-    
+
+-Responsive
+    - In TailwindCSS
+        - default -> mobile
+        - sm -> tab
+        - md -> web

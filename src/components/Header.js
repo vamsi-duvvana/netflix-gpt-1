@@ -50,9 +50,9 @@ const Header = () => {
     }
 
     return (
-        <div className="absolute px-5 pt-2 bg-gradient-to-b from-black z-10 w-screen flex justify-between">
-            <img className="w-52" src={LOGO} alt="logo" />
-            {user && (<div className="flex my-10 p-2 justify-center items-center">
+        <div className="absolute px-5 pt-2 bg-gradient-to-b from-black z-10 w-screen flex flex-col md:flex-row justify-between">
+            <img className="w-52 mx-auto md:mx-0" src={LOGO} alt="logo" />
+            {user && (<div className="flex my-0 md:my-10 p-2 justify-center items-center">
                 {gptToggler && (<select className="p-2 m-2 rounded-md font-bold bg-gray-900 text-white" onChange={handleLangChange}>
                     {SUPPORTED_LANGUAGES.map((item) => {
                         return (
@@ -60,10 +60,12 @@ const Header = () => {
                         )
                     })}
                 </select>)}
-                <button className="p-2 m-2 mr-10 text-white bg-gray-500 rounded-md font-bold" onClick={() => handleGptBtn()} >{gptToggler ? "Home Page" : "GPT Search"}</button>
+                <button className="p-2 m-2 mr-10 text-white bg-gray-500 rounded-md font-bold" onClick={() => handleGptBtn()} >{gptToggler ? "Home" : "GPT Search"}</button>
                 <div className="mr-2 text-white">Hi, {user.displayName}</div>
-                <img className="w-10 h-10 mr-2" src={USER_AVATAR} alt="profile-img" />
-                <button onClick={() => handleSignOutBtn()} className=" text-white text-sm">(Sign Out)</button>
+                <img className="hidden md:inline-block w-10 h-10 mr-2" src={USER_AVATAR} alt="profile-img" />
+                <button onClick={() => handleSignOutBtn()} className=" text-white text-sm">
+                    <img className="w-7 md:w-8" src="https://res.cloudinary.com/dhqgc5kzm/image/upload/v1705844168/logout_e47vzq.png" alt="logout-icon"/>
+                </button>
             </div>)}
         </div>
     )
